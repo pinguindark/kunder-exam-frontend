@@ -1,0 +1,37 @@
+<ng-container *ngIf="(product$ | async) as product">
+
+  <div class="banner-container" *ngIf="product.show">
+    <ng-container *ngIf="product.type == 'plan'">
+      <ng-container *ngTemplateOutlet="plan; context:{product: product}"></ng-container>
+    </ng-container>
+  
+    <ng-container *ngIf="product.type == 'cellphone'">
+      <ng-container *ngTemplateOutlet="cellphone; context:{product: product}"></ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #plan let-product="product" >
+  <div class="plan-banner" [ngStyle]="{'background-image': 'url(' + product.backgroundImg + ')'}">
+    <div class="row">
+      <div class="col-md-12">
+        <p>{{product.productDescription}}</p>
+        <a class="btn btn-primary" [href]="product.link" role="button">{{product.buttonText}}</a>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #cellphone let-product="product">
+  <div class="product-banner">
+    <div class="row">
+      <div class="col-md-9 col-sm-12 padd-30">
+        <p>{{product.productName}}</p>
+        <p>{{product.productDescription}}</p>
+      </div>
+      <div class="col-md-3 d-none d-sm-none d-md-block">
+        <img class="img-responsive" [src]="product.productImg">
+      </div>
+    </div>
+  </div>
+</ng-template>
